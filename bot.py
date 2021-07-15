@@ -80,7 +80,7 @@ def menu():
 		exit("\n ! pengguna id "+id+" tidak ditemukan")
 
 if __name__ == "__main__":
-	os.systen("touch login.txt")
+	os.system("touch login.txt")
 	if sys.version[0]!="3":
 		python="2.7" if "2.7" in sys.version[0:2] else "2.8"
 	else:
