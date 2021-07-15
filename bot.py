@@ -5,25 +5,6 @@ import os, sys, re, requests, json, time, datetime
 web = datetime.datetime.now()
 waktu = web.strftime("%H:%M:%S / %d-%m-%Y ")
 
-def login():
-	os.system("clear")
-	try:
-		token = open("login.txt","r")
-		menu()
-	except KeyError, IOError:
-		print("\n * ketik 'help' jika tidak tau cara ambil token fb")
-		token = raw_input(" + token fb : ")
-		try:
-			otw = requests.get("https://graph.facebook.com/me?access_token="+token)
-			a = json.loads(otw.text)
-			avs = open("login.txt","w")
-			avs.write(token)
-			avs.close()
-			time.sleep(1)
-			menu()
-		except KeyError:
-			exit(" ! token kadaluwarsa")
-
 def menu():
 	komen = []
 	global token
@@ -80,9 +61,19 @@ def menu():
 		exit("\n ! pengguna id "+id+" tidak ditemukan")
 
 if __name__ == "__main__":
-	os.system("touch login.txt")
-	if sys.version[0]!="3":
-		python="2.7" if "2.7" in sys.version[0:2] else "2.8"
-	else:
-		exit(" ! warning : anda menggunakan python3 mohon gunakan python2")
-	login()
+	try:
+		token = open("login.txt","r").read()
+		menu()
+	except KeyError, IOError:
+		print("\n * ketik 'help' jika tidak tau cara ambil token fb")
+		token = raw_input(" + token fb : ")
+		try:
+			otw = requests.get("https://graph.facebook.com/me?access_token="+token)
+			a = json.loads(otw.text)
+			avs = open("login.txt","w")
+			avs.write(token)
+			avs.close()
+			time.sleep(1)
+			menu()
+		except KeyError:
+			exit(" ! token kadaluwarsa")
