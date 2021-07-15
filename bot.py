@@ -80,13 +80,7 @@ def menu():
 		exit("\n ! pengguna id "+id+" tidak ditemukan")
 
 if __name__ == "__main__":
-	try:
-		token = open("login.txt","r").read()
-		menu()
-	except KeyError, IOError:
-		print(" ! token kadaluwarsa")
-		time.sleep(1)
-		login()
+	os.systen("touch login.txt")
 	if sys.version[0]!="3":
 		python="2.7" if "2.7" in sys.version[0:2] else "2.8"
 	else:
